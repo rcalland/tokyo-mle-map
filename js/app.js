@@ -122,11 +122,6 @@ function renderSubwayLines() {
         opacity: 0.35,
         smoothFactor: 1
       });
-      polyline.bindTooltip(line.name, {
-        permanent: false,
-        direction: 'right',
-        className: 'subway-tooltip'
-      });
       subwayLayer.addLayer(polyline);
     });
   });
