@@ -51,10 +51,12 @@ body {
 }
 
 .header__title h1 {
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 1rem;
   font-weight: 700;
   color: var(--color-text);
   line-height: 1;
+  letter-spacing: -0.02em;
 }
 
 .header__controls {
