@@ -235,6 +235,12 @@ body {
     gap: 12px;
   }
 
+  .map-container {
+    margin-top: 29px;
+    height: calc(100vh - 29px);
+  }
+}
+
 .modal {
   display: none;
   position: fixed;
@@ -299,13 +305,6 @@ body {
 
 .modal__close:hover {
   color: var(--color-text);
-}
-
-.map-container {
-    margin-top: 29px;
-    height: calc(100vh - 29px);
-  }
-
 }
 
 body.lang-jp {
