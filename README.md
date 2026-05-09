@@ -1,6 +1,6 @@
-# Tokyo AI Map
+# Tokyo MLE Map
 
-Interactive map of AI companies in Tokyo, showcasing Japan's artificial intelligence ecosystem.
+Interactive map of ML engineers and AI companies in Tokyo, showcasing Japan's machine learning ecosystem.
 
 ## Quick Start
 
@@ -22,7 +22,7 @@ Live-server watches `css/`, `js/`, and `data/` directories and auto-reloads the 
 ## File Structure
 
 ```
-tokyo-tech-map/
+tokyo-mle-map/
 ├── index.html
 ├── css/style.css
 ├── js/app.js
