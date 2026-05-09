@@ -16,6 +16,10 @@ let map = null;
 let allCategories = [];
 let subwayVisible = true;
 let clusteringEnabled = true;
+let individualMarkers = [];
+let displacementDots = [];
+let highZoomActive = false;
+let collisionAnimating = false;
 
 async function init() {
   try {
@@ -55,7 +59,7 @@ function initMap() {
   markerLayer = L.layerGroup();
   clusterLayer = L.markerClusterGroup({
     maxClusterRadius: 60,
-    disableClusteringAtZoom: 16,
+    disableClusteringAtZoom: 14,
     spiderfyOnMaxZoom: true,
     showCoverageOnHover: false,
     iconCreateFunction: function(cluster) {
@@ -125,6 +129,7 @@ function createMarker(props, latlng) {
 function renderMarkers() {
   markerLayer.clearLayers();
   clusterLayer.clearLayers();
+  individualMarkers = [];
 
   geojsonData.features
     .slice()
@@ -135,7 +140,10 @@ function renderMarkers() {
       const latlng = [coords[1], coords[0]];
 
       const marker = createMarker(props, latlng);
+      marker.originalLatLng = latlng;
+      marker.category = props.category;
       markerLayer.addLayer(marker);
+      individualMarkers.push(marker);
 
       const clusterMarker = createMarker(props, latlng);
       clusterLayer.addLayer(clusterMarker);
@@ -148,6 +156,180 @@ function setupEventListeners() {
   document.getElementById('about-toggle').addEventListener('click', openAbout);
   document.getElementById('about-close').addEventListener('click', closeAbout);
   document.getElementById('about-modal').addEventListener('click', closeAbout);
+  map.on('zoomend moveend', checkCollisions);
+}
+
+const COLLISION_PADDING = 8;
+const MAX_DISPLACEMENT = 25;
+const MAX_ITERATIONS = 5;
+const MARKER_WIDTH = 60;
+const MARKER_HEIGHT = 32;
+
+function getMarkerBounds(marker) {
+  const point = map.latLngToContainerPoint(marker.getLatLng());
+  return {
+    x: point.x - MARKER_WIDTH / 2,
+    y: point.y - MARKER_HEIGHT / 2,
+    w: MARKER_WIDTH,
+    h: MARKER_HEIGHT
+  };
+}
+
+function boxesOverlap(a, b) {
+  const pad = COLLISION_PADDING;
+  return !(
+    a.x + a.w + pad <= b.x ||
+    b.x + b.w + pad <= a.x ||
+    a.y + a.h + pad <= b.y ||
+    b.y + b.h + pad <= a.y
+  );
+}
+
+const DISABLE_CLUSTERING_ZOOM = 14;
+const ANIMATION_DURATION = 300;
+
+function hasAnyCollisions() {
+  for (let i = 0; i < individualMarkers.length; i++) {
+    for (let j = i + 1; j < individualMarkers.length; j++) {
+      const boundsA = getMarkerBounds(individualMarkers[i]);
+      const boundsB = getMarkerBounds(individualMarkers[j]);
+      if (boxesOverlap(boundsA, boundsB)) return true;
+    }
+  }
+  return false;
+}
+
+function resolveCollisions() {
+  for (let iter = 0; iter < MAX_ITERATIONS; iter++) {
+    let hasCollision = false;
+
+    for (let i = 0; i < individualMarkers.length; i++) {
+      for (let j = i + 1; j < individualMarkers.length; j++) {
+        const a = individualMarkers[i];
+        const b = individualMarkers[j];
+        const boundsA = getMarkerBounds(a);
+        const boundsB = getMarkerBounds(b);
+
+        if (!boxesOverlap(boundsA, boundsB)) continue;
+
+        hasCollision = true;
+
+        const centerA = map.latLngToContainerPoint(a.getLatLng());
+        const centerB = map.latLngToContainerPoint(b.getLatLng());
+        let dx = centerB.x - centerA.x;
+        let dy = centerB.y - centerA.y;
+        const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        dx /= dist;
+        dy /= dist;
+
+        const overlapW = Math.min(boundsA.x + boundsA.w, boundsB.x + boundsB.w) - Math.max(boundsA.x, boundsB.x);
+        const overlapH = Math.min(boundsA.y + boundsA.h, boundsB.y + boundsB.h) - Math.max(boundsA.y, boundsB.y);
+        const pushDist = Math.max(overlapW, overlapH) / 2 + COLLISION_PADDING;
+        const clampedDist = Math.min(pushDist, MAX_DISPLACEMENT) / 2;
+
+        const newLatLngA = map.containerPointToLatLng([
+          centerA.x - dx * clampedDist,
+          centerA.y - dy * clampedDist
+        ]);
+        const newLatLngB = map.containerPointToLatLng([
+          centerB.x + dx * clampedDist,
+          centerB.y + dy * clampedDist
+        ]);
+        a.setLatLng(newLatLngA);
+        b.setLatLng(newLatLngB);
+      }
+    }
+
+    if (!hasCollision) break;
+  }
+}
+
+function updateDisplacementDots() {
+  displacementDots.forEach(dot => markerLayer.removeLayer(dot));
+  displacementDots = [];
+
+  individualMarkers.forEach(m => {
+    const current = m.getLatLng();
+    const original = m.originalLatLng;
+    if (current.lat !== original[0] || current.lng !== original[1]) {
+      const dot = L.circleMarker(original, {
+        radius: 3,
+        fillColor: getMarkerColor(m.category),
+        fillOpacity: 0.5,
+        weight: 0
+      });
+      markerLayer.addLayer(dot);
+      displacementDots.push(dot);
+    }
+  });
+}
+
+function checkCollisions() {
+  if (collisionAnimating) return;
+
+  const zoom = map.getZoom();
+
+  if (clusteringEnabled && zoom >= DISABLE_CLUSTERING_ZOOM && !highZoomActive) {
+    map.removeLayer(clusterLayer);
+    markerLayer.addTo(map);
+    highZoomActive = true;
+    individualMarkers.forEach(m => m.setLatLng(m.originalLatLng));
+  }
+
+  if (clusteringEnabled && highZoomActive && zoom < DISABLE_CLUSTERING_ZOOM) {
+    map.removeLayer(markerLayer);
+    displacementDots.forEach(dot => markerLayer.removeLayer(dot));
+    displacementDots = [];
+    clusterLayer.addTo(map);
+    highZoomActive = false;
+    return;
+  }
+
+  if (clusteringEnabled && !highZoomActive) return;
+
+  if (!hasAnyCollisions()) return;
+
+  const startPositions = individualMarkers.map(m => m.getLatLng());
+  resolveCollisions();
+  const endPositions = individualMarkers.map(m => m.getLatLng());
+  animateMarkers(startPositions, endPositions);
+  updateDisplacementDots();
+}
+
+function animateMarkers(startPositions, endPositions) {
+  const hasDisplacement = startPositions.some((s, i) =>
+    s.lat !== endPositions[i].lat || s.lng !== endPositions[i].lng
+  );
+  if (!hasDisplacement) return;
+
+  collisionAnimating = true;
+  const startTime = performance.now();
+
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function step(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / ANIMATION_DURATION, 1);
+    const eased = easeOutCubic(progress);
+
+    individualMarkers.forEach((m, i) => {
+      const start = startPositions[i];
+      const end = endPositions[i];
+      const lat = start.lat + (end.lat - start.lat) * eased;
+      const lng = start.lng + (end.lng - start.lng) * eased;
+      m.setLatLng([lat, lng]);
+    });
+
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      collisionAnimating = false;
+    }
+  }
+
+  requestAnimationFrame(step);
 }
 
 function openAbout() {
@@ -197,16 +379,20 @@ function toggleSubway() {
 function toggleClustering() {
   clusteringEnabled = !clusteringEnabled;
   const btn = document.getElementById('cluster-toggle');
+  highZoomActive = false;
 
   map.removeLayer(markerLayer);
   map.removeLayer(clusterLayer);
 
   if (clusteringEnabled) {
+    displacementDots.forEach(dot => markerLayer.removeLayer(dot));
+    displacementDots = [];
     clusterLayer.addTo(map);
     btn.classList.add('active');
   } else {
     markerLayer.addTo(map);
     btn.classList.remove('active');
+    setTimeout(() => checkCollisions(), 50);
   }
 }
 
