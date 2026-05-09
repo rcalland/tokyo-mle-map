@@ -1,0 +1,269 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.70315, 35.65735]
+      },
+      "properties": {
+        "name": "Google",
+        "category": "Foreign Big Tech",
+        "address": "Shibuya Stream, Shibuya",
+        "ml_focus": "Search, LLM, Cloud AI",
+        "salary_tier": "High (¥20M - ¥35M+)",
+        "tech_stack": "TensorFlow, TPU, Jax",
+        "recruitment": "English-First / Highly Competitive"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.74935, 35.64603]
+      },
+      "properties": {
+        "name": "Indeed",
+        "category": "Foreign Big Tech",
+        "address": "Azabudai Hills, Minato",
+        "ml_focus": "Matching Algorithms, NLP",
+        "salary_tier": "High (¥20M - ¥30M+)",
+        "tech_stack": "Python, Java, Kubernetes",
+        "recruitment": "English-First / OpenSalary Favorite"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.75004, 35.66788]
+      },
+      "properties": {
+        "name": "Sakana AI",
+        "category": "Local AI Research",
+        "address": "Minato-ku, Tokyo",
+        "ml_focus": "Foundation Models, Evolutionary AI",
+        "salary_tier": "Variable (High Equity)",
+        "tech_stack": "PyTorch, Custom LLM Frameworks",
+        "recruitment": "Research-Heavy / English"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.76587, 35.68630]
+      },
+      "properties": {
+        "name": "Preferred Networks",
+        "category": "Local AI Research",
+        "address": "Otemachi, Chiyoda",
+        "ml_focus": "Deep Learning, Robotics, Biotech",
+        "salary_tier": "Mid-High (¥12M - ¥18M)",
+        "tech_stack": "Chainer, PyTorch, Custom Silicon",
+        "recruitment": "Academic / Bilingual"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.76382, 35.68668]
+      },
+      "properties": {
+        "name": "Wayve",
+        "category": "Autonomous Driving",
+        "address": "Yokohama/Tokyo Hub",
+        "ml_focus": "Embodied AI, End-to-End DL",
+        "salary_tier": "Competitive (¥15M - ¥22M)",
+        "tech_stack": "PyTorch, C++, Computer Vision",
+        "recruitment": "Global Startup / English"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.77259, 35.68778]
+      },
+      "properties": {
+        "name": "Woven by Toyota",
+        "category": "Autonomous Driving",
+        "address": "Nihonbashi, Chuo",
+        "ml_focus": "Computer Vision, Smart City AI",
+        "salary_tier": "Mid-High (¥13M - ¥18M)",
+        "tech_stack": "C++, Python, ROS",
+        "recruitment": "Global / English"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.72930, 35.66051]
+      },
+      "properties": {
+        "name": "Mercari",
+        "category": "Local Tech Giant",
+        "address": "Roppongi Hills, Minato",
+        "ml_focus": "Generative AI, Recommendations",
+        "salary_tier": "Mid-High (¥12M - ¥20M)",
+        "tech_stack": "GCP, Python, Go",
+        "recruitment": "Bilingual / Remote-Friendly"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.74109, 35.66986]
+      },
+      "properties": {
+        "name": "NVIDIA",
+        "category": "Foreign Big Tech",
+        "address": "Akasaka, Minato",
+        "ml_focus": "CUDA, Omniverse, LLM Infra",
+        "salary_tier": "High (¥18M - ¥28M)",
+        "tech_stack": "C++, CUDA, Python",
+        "recruitment": "Sales/Architecture Focused"
+      }
+    },
+    {
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [139.71485, 35.63256]
+  },
+  "properties": {
+    "name": "Amazon & AWS",
+    "category": "Foreign Big Tech",
+    "address": "Meguro Central Square, 3-1-1 Kamiosaki, Shinagawa-ku",
+    "ml_focus": "Personalization, AWS Bedrock (Generative AI), Demand Forecasting",
+    "salary_tier": "High (¥18M - ¥25M+ for L6 ML roles)",
+    "tech_stack": "Python, AWS SageMaker, Bedrock, Java",
+    "recruitment": "English-First / High Scalability Focus",
+    "notes": "Highly active in 2026 for Applied ML and Solutions Architecture roles within AWS Japan."
+  }
+},
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [139.72914, 35.66013]
+  },
+  "properties": {
+    "name": "Apple",
+    "category": "Foreign Big Tech",
+    "address": "Roppongi Hills Mori Tower, 6-10-1 Roppongi, Minato-ku",
+    "ml_focus": "On-device ML (Core ML), Siri NLP, Computer Vision (Camera/FaceID), Apple Intelligence Localisation",
+    "salary_tier": "High (¥16M - ¥32M+)",
+    "tech_stack": "Swift, Core ML, C++, Objective-C, Metal",
+    "recruitment": "Secretive / High Bar / English-Primary",
+    "notes": "The Tokyo office is a key hub for 'Apple Intelligence' localization and on-device inference optimization for the Japanese market."
+  }
+},
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [139.62972, 35.61044]
+  },
+  "properties": {
+    "name": "Rakuten",
+    "category": "Local Tech Giant",
+    "address": "Rakuten Crimson House, 1-14-1 Tamagawa, Setagaya-ku",
+    "ml_focus": "Rakuten AI Foundation (LLMs), Recommendation Engines, Fraud Detection, Fintech Scoring",
+    "salary_tier": "Mid-Range (¥8M - ¥16M+)",
+    "tech_stack": "Python, Java, PyTorch, Teradata, Docker/K8s",
+    "recruitment": "English-First / High Volume Hiring",
+    "notes": "Features a specialized 'AI & Data Division' and 'Rakuten Institute of Technology' for R&D. Very international environment with breakfast/lunch included."
+  }
+},
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [139.74252, 35.62427]
+  },
+  "properties": {
+    "name": "TIER IV",
+    "category": "Autonomous Driving",
+    "address": "Jacom Building, 1-12-10 Kitashinagawa, Shinagawa-ku",
+    "ml_focus": "Autoware (OSS), Sensor Fusion, End-to-End Deep Learning, Reinforcement Learning for Robotics",
+    "salary_tier": "Mid-High (¥10M - ¥18M+)",
+    "tech_stack": "C++, Python, ROS/ROS2, Autoware, CUDA",
+    "recruitment": "International / OSS-Friendly / Bilingual but English-Capable",
+    "notes": "The primary maintainer of Autoware. Highly attractive for engineers who want their work to be open-source and contribute to global standards."
+  }
+},
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [139.74758, 35.57890]
+  },
+  "properties": {
+    "name": "Turing",
+    "category": "Autonomous Driving / Physical AI",
+    "address": "Tokyo Ryutsu Center, 6-1-1 Heiwajima, Ota-ku, Tokyo",
+    "ml_focus": "End-to-End Autonomous Driving, VLA Models, Multimodal LLMs",
+    "salary_tier": "Mid-High (¥10M - ¥20M + Stock Options)",
+    "tech_stack": "PyTorch, Generative AI, C++, Linux/Embedded",
+    "recruitment": "Bilingual / High Intensity / 'Agentic' Culture",
+    "notes": "Introduced 'Agentic Coding' in 2026 (allowance for AI tools). Very active in the 'GENIAC' Japanese AI project."
+  }
+},
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [139.7400, 35.6677]
+  },
+  "properties": {
+    "name": "Sony AI",
+    "category": "Local AI Research / Gaming / Robotics",
+    "address": "Minato-ku, Tokyo (Near Azabudai/Toranomon hub)",
+    "ml_focus": "Reinforcement Learning (RL), Robotics, Imaging/Sensing, AI for Creators",
+    "salary_tier": "High (¥14M - ¥28M+ for Senior Researchers)",
+    "tech_stack": "PyTorch, C++, ROS, Custom Sensing (IMX sensors)",
+    "recruitment": "English-Primary / Research-Focused",
+    "notes": "Home of 'Gran Turismo Sophy' and 'Project Ace.' Heavily focused on combining AI with Sony’s world-leading hardware sensors."
+  }
+},
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [139.7404, 35.6268]
+  },
+  "properties": {
+    "name": "Microsoft",
+    "category": "Foreign Big Tech",
+    "address": "Shinagawa Grand Central Tower, 2-16-3 Konan, Minato-ku",
+    "ml_focus": "Azure AI Services, Sovereign Cloud AI, Cybersecurity ML, Enterprise LLM Adoption",
+    "salary_tier": "High (¥15M - ¥30M+)",
+    "tech_stack": "Azure, OpenAI SDK, PyTorch, C#, TypeScript",
+    "recruitment": "Bilingual (Varies by role) / High RSU Packages",
+    "notes": "In 2026, Microsoft announced a massive $10B investment in Japan for AI infrastructure and 'Sovereign AI' partnerships with SoftBank and Sakura Internet."
+  }
+},
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [139.7028, 35.6656]
+  },
+  "properties": {
+    "name": "SmartNews",
+    "category": "Local Tech Giant / AI News",
+    "address": "Ichigo Jingumae Bldg. 2F, 6-25-16 Jingumae, Shibuya-ku",
+    "ml_focus": "News Feed Optimization, NLP (Ad-targeting/Categorization), Generative AI for Summarization",
+    "salary_tier": "High (¥12M - ¥22M+)",
+    "tech_stack": "Python, Java, Scala, PyTorch, AWS, Kubernetes",
+    "recruitment": "English-First / Over 50% International Engineers",
+    "notes": "Known for a high-quality codebase and a 'Data-Driven' culture. Offers 'Work from Anywhere' (up to 30 days/year) and full visa sponsorship."
+  }
+}
+  ]
+}
