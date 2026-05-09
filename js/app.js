@@ -10,10 +10,12 @@ let currentLang = 'en';
 let geojsonData = null;
 let subwayData = null;
 let markerLayer = null;
+let clusterLayer = null;
 let subwayLayer = null;
 let map = null;
 let allCategories = [];
 let subwayVisible = true;
+let clusteringEnabled = true;
 
 async function init() {
   try {
@@ -27,7 +29,9 @@ async function init() {
     initMap();
     renderMarkers();
     renderSubwayLines();
+    clusterLayer.addTo(map);
     document.getElementById('subway-toggle').classList.add('active');
+    document.getElementById('cluster-toggle').classList.add('active');
     setupEventListeners();
   } catch (error) {
     console.error('Failed to load data:', error);
@@ -48,7 +52,30 @@ function initMap() {
   }).addTo(map);
 
   L.control.zoom({ position: 'topright' }).addTo(map);
-  markerLayer = L.layerGroup().addTo(map);
+  markerLayer = L.layerGroup();
+  clusterLayer = L.markerClusterGroup({
+    maxClusterRadius: 60,
+    disableClusteringAtZoom: 16,
+    spiderfyOnMaxZoom: true,
+    showCoverageOnHover: false,
+    iconCreateFunction: function(cluster) {
+      var childCount = cluster.getChildCount();
+      return L.divIcon({
+        html: `<div style="
+          width: 36px; height: 36px;
+          background: rgba(96, 165, 250, 0.85);
+          border: 2px solid rgba(255,255,255,0.3);
+          border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          color: #fff; font-weight: 700; font-size: 13px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        ">${childCount}</div>`,
+        className: '',
+        iconSize: [36, 36],
+        iconAnchor: [18, 18]
+      });
+    }
+  });
 }
 
 function getMarkerColor(category) {
@@ -87,9 +114,18 @@ function createPopupContent(props) {
   `;
 }
 
+function createMarker(props, latlng) {
+  const marker = L.marker(latlng, {
+    icon: createMarkerIcon(props.category, props.name)
+  });
+  marker.bindPopup(createPopupContent(props), { maxWidth: 320 });
+  return marker;
+}
+
 function renderMarkers() {
   markerLayer.clearLayers();
-  
+  clusterLayer.clearLayers();
+
   geojsonData.features
     .slice()
     .sort((a, b) => a.geometry.coordinates[1] - b.geometry.coordinates[1])
@@ -97,17 +133,18 @@ function renderMarkers() {
       const props = feature.properties;
       const coords = feature.geometry.coordinates;
       const latlng = [coords[1], coords[0]];
-      
-      const marker = L.marker(latlng, {
-        icon: createMarkerIcon(props.category, props.name)
-      });
-      marker.bindPopup(createPopupContent(props), { maxWidth: 320 });
+
+      const marker = createMarker(props, latlng);
       markerLayer.addLayer(marker);
+
+      const clusterMarker = createMarker(props, latlng);
+      clusterLayer.addLayer(clusterMarker);
     });
 }
 
 function setupEventListeners() {
   document.getElementById('subway-toggle').addEventListener('click', toggleSubway);
+  document.getElementById('cluster-toggle').addEventListener('click', toggleClustering);
   document.getElementById('about-toggle').addEventListener('click', openAbout);
   document.getElementById('about-close').addEventListener('click', closeAbout);
   document.getElementById('about-modal').addEventListener('click', closeAbout);
@@ -153,6 +190,22 @@ function toggleSubway() {
   } else if (subwayLayer) {
     map.removeLayer(subwayLayer);
     subwayLayer = null;
+    btn.classList.remove('active');
+  }
+}
+
+function toggleClustering() {
+  clusteringEnabled = !clusteringEnabled;
+  const btn = document.getElementById('cluster-toggle');
+
+  map.removeLayer(markerLayer);
+  map.removeLayer(clusterLayer);
+
+  if (clusteringEnabled) {
+    clusterLayer.addTo(map);
+    btn.classList.add('active');
+  } else {
+    markerLayer.addTo(map);
     btn.classList.remove('active');
   }
 }

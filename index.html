@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -20,6 +22,9 @@
       <div class="header__controls">
         <button id="subway-toggle" class="btn btn--subway" title="Toggle subway lines">
           🚇
+        </button>
+        <button id="cluster-toggle" class="btn btn--subway" title="Toggle marker clustering">
+          🔘
         </button>
         <button id="about-toggle" class="btn btn--subway" title="About">
           ℹ️
@@ -44,6 +49,7 @@
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
