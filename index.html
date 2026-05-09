@@ -18,6 +18,9 @@
         <button id="subway-toggle" class="btn btn--subway" title="Toggle subway lines">
           🚇
         </button>
+        <button id="about-toggle" class="btn btn--subway" title="About">
+          ℹ️
+        </button>
       </div>
     </div>
   </header>
@@ -25,6 +28,17 @@
   <main class="map-container">
     <div id="map"></div>
   </main>
+
+  <div id="about-modal" class="modal">
+    <div class="modal__content">
+      <button id="about-close" class="modal__close">&times;</button>
+      <h2>🗼 Tokyo MLE Map</h2>
+      <p>An interactive map showcasing ML and AI companies across Tokyo.</p>
+      <p>Explore the city's vibrant machine learning ecosystem, from local AI research labs to global tech giants and autonomous driving startups.</p>
+      <p>Click on markers to learn more about each company's focus area, tech stack, and recruitment details.</p>
+      <p class="modal__footer">Built with Leaflet & OpenStreetMap</p>
+    </div>
+  </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="js/app.js"></script>

@@ -108,6 +108,17 @@ function renderMarkers() {
 
 function setupEventListeners() {
   document.getElementById('subway-toggle').addEventListener('click', toggleSubway);
+  document.getElementById('about-toggle').addEventListener('click', openAbout);
+  document.getElementById('about-close').addEventListener('click', closeAbout);
+  document.getElementById('about-modal').addEventListener('click', closeAbout);
+}
+
+function openAbout() {
+  document.getElementById('about-modal').classList.add('modal--active');
+}
+
+function closeAbout() {
+  document.getElementById('about-modal').classList.remove('modal--active');
 }
 
 function renderSubwayLines() {
