@@ -96,7 +96,8 @@ function renderMarkers() {
     const latlng = [coords[1], coords[0]];
     
     const marker = L.marker(latlng, {
-      icon: createMarkerIcon(props.category, props.name)
+      icon: createMarkerIcon(props.category, props.name),
+      zIndexOffset: props.name === 'Wayve' ? 1000 : 0
     });
     marker.bindPopup(createPopupContent(props), { maxWidth: 320 });
     markerLayer.addLayer(marker);
