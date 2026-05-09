@@ -32,7 +32,7 @@ body {
 .header {
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
-  padding: 12px 24px;
+  padding: 6px 24px;
   position: fixed;
   top: 0;
   left: 0;
@@ -51,15 +51,16 @@ body {
 }
 
 .header__title h1 {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--color-text);
+  line-height: 1;
 }
 
 .header__controls {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .btn {
@@ -83,12 +84,12 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 12px;
+  padding: 4px 10px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   background: var(--color-surface);
   color: var(--color-text);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
@@ -122,9 +123,9 @@ body {
 }
 
 .map-container {
-  margin-top: 73px;
+  margin-top: 52px;
   width: 100%;
-  height: calc(100vh - 73px);
+  height: calc(100vh - 52px);
   position: relative;
 }
 
@@ -250,8 +251,8 @@ body {
   }
 
   .map-container {
-    margin-top: 73px;
-    height: calc(100vh - 73px);
+    margin-top: 60px;
+    height: calc(100vh - 60px);
   }
 
 }
