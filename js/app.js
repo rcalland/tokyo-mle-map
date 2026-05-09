@@ -90,18 +90,20 @@ function createPopupContent(props) {
 function renderMarkers() {
   markerLayer.clearLayers();
   
-  geojsonData.features.forEach(feature => {
-    const props = feature.properties;
-    const coords = feature.geometry.coordinates;
-    const latlng = [coords[1], coords[0]];
-    
-    const marker = L.marker(latlng, {
-      icon: createMarkerIcon(props.category, props.name),
-      zIndexOffset: props.name === 'Wayve' ? 1000 : 0
+  geojsonData.features
+    .slice()
+    .sort((a, b) => a.geometry.coordinates[1] - b.geometry.coordinates[1])
+    .forEach(feature => {
+      const props = feature.properties;
+      const coords = feature.geometry.coordinates;
+      const latlng = [coords[1], coords[0]];
+      
+      const marker = L.marker(latlng, {
+        icon: createMarkerIcon(props.category, props.name)
+      });
+      marker.bindPopup(createPopupContent(props), { maxWidth: 320 });
+      markerLayer.addLayer(marker);
     });
-    marker.bindPopup(createPopupContent(props), { maxWidth: 320 });
-    markerLayer.addLayer(marker);
-  });
 }
 
 function setupEventListeners() {
